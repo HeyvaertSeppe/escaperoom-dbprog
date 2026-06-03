@@ -1,46 +1,45 @@
-package escaperoom.logica;
+package logica;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Groep {
-    String naam;
-    int deelnemers;
-    String tijdstip;
-    int groepId;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yy", Locale.ROOT);
+    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
 
+    private final int id;
+    private final String naam;
+    private final int aantalDeelnemers;
+    private final LocalDateTime tijdstip;
 
-    public Groep(int groepId, String naam, int deelnemers, String tijdstip) {
-        this.groepId = groepId;
+    public Groep(int id, String naam, int aantalDeelnemers, LocalDateTime tijdstip) {
+        this.id = id;
         this.naam = naam;
-        this.deelnemers = deelnemers;
+        this.aantalDeelnemers = aantalDeelnemers;
         this.tijdstip = tijdstip;
     }
 
+    public int getId() {
+        return id;
+    }
 
-    @Override
-    public String toString() {
-        String datum;
-        if(naam == null){
-            naam = "-";
+    public String getNaam() {
+        return naam;
+    }
+
+    public int getAantalDeelnemers() {
+        return aantalDeelnemers;
+    }
+
+    public String formatZonderIndex() {
+        return naam + " (" + aantalDeelnemers + " deelnemers) " + formatTijdslot();
+    }
+
+    public String formatTijdslot() {
+        if (tijdstip == null) {
+            return "-";
         }
-        if(tijdstip == null){
-            tijdstip = "-";
-            datum = tijdstip;
-        }
-        else{
-            String jaar = tijdstip.substring(2, 4);
-            String maand = tijdstip.substring(5, 7);
-            String dag = tijdstip.substring(8, 10);
-
-
-            String tijd = tijdstip.substring(11,tijdstip.length()-3);
-            LocalTime startTijd = LocalTime.parse(tijd);
-            LocalTime eindTijd = startTijd.plusHours(1);
-
-            datum = dag + "/" + maand + "/" + jaar+"  "+tijd+"-"+eindTijd;
-
-        }
-        String uitvoer = groepId+". "+ naam +"  ("+deelnemers+" deelnemers)  "+datum;
-        return uitvoer;
+        return DATE_FORMAT.format(tijdstip) + " " + TIME_FORMAT.format(tijdstip) + "-" + TIME_FORMAT.format(tijdstip.plusHours(1));
     }
 }

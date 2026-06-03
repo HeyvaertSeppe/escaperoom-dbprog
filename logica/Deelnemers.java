@@ -1,42 +1,41 @@
-package escaperoom.logica;
+package logica;
 
 public class Deelnemers {
-    String voornaam;
-    String familienaam;
-    String emailadres;
-    String telefoonnummer;
-    String groepnaam;
-    int persoonId;
+    private final int persoonId;
+    private final String voornaam;
+    private final String familienaam;
+    private final String emailadres;
+    private final String telefoonnummer;
 
-    public Deelnemers(int persoonId, String voornaam, String familienaam, String emailadres, String telefoonnummer, String groepnaam) {
+    public Deelnemers(int persoonId, String voornaam, String familienaam, String emailadres, String telefoonnummer) {
+        this.persoonId = persoonId;
         this.voornaam = voornaam;
         this.familienaam = familienaam;
         this.emailadres = emailadres;
         this.telefoonnummer = telefoonnummer;
-        this.groepnaam = groepnaam;
-        this.persoonId = persoonId;
     }
 
+    public int getPersoonId() {
+        return persoonId;
+    }
 
-    @Override
-    public String toString() {
-        if(voornaam == null){
-            voornaam = "-";
-        }
-        if(familienaam == null){
-            familienaam = "";
-        }
-        if(telefoonnummer == null){
-            telefoonnummer = "-";
-        }
-        if(emailadres == null){
-            emailadres = "-";
-        }
-        String naam = voornaam + " " + familienaam;
+    public String getVoornaam() {
+        return voornaam;
+    }
 
+    public String getFamilienaam() {
+        return familienaam;
+    }
 
-        String uitvoer = persoonId+". "+ naam+"  "+emailadres+"  "+telefoonnummer;
-        return uitvoer;
+    public String getEmailadres() {
+        return emailadres;
+    }
 
+    public String getTelefoonnummer() {
+        return telefoonnummer;
+    }
+
+    public String formatLijn() {
+        return "- " + voornaam + " " + familienaam + " " + emailadres + " " + (telefoonnummer == null || telefoonnummer.isBlank() ? "-" : telefoonnummer);
     }
 }

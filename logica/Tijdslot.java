@@ -1,76 +1,89 @@
-package escaperoom.logica;
+package logica;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Tijdslot {
-    String tijdstip;
-    BigDecimal prijs;
-    String voornaam;
-    String familienaam;
-    String groepnaam;
-    int tijdslotId;
-    int tijdslotIdOrder;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yy", Locale.ROOT);
+    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
 
+    private final int id;
+    private final LocalDateTime tijdstip;
+    private final BigDecimal prijs;
+    private final Integer gamemasterId;
+    private final String gamemasterVoornaam;
+    private final String gamemasterFamilienaam;
+    private final Integer groepId;
+    private final String groepNaam;
 
-
-    public Tijdslot(int tijdslotId, String tijdstip, BigDecimal prijs, String voornaam, String familienaam, String naam) {
-        this.prijs = prijs;
+    public Tijdslot(int id,
+                    LocalDateTime tijdstip,
+                    BigDecimal prijs,
+                    Integer gamemasterId,
+                    String gamemasterVoornaam,
+                    String gamemasterFamilienaam,
+                    Integer groepId,
+                    String groepNaam) {
+        this.id = id;
         this.tijdstip = tijdstip;
-        this.voornaam = voornaam;
-        this.familienaam = familienaam;
-        this.groepnaam = naam;
-        this.tijdslotId = tijdslotId;
-    }
-
-    public String getGamemasterName()           { return voornaam; }
-    public int getTijdstipId(){ return tijdslotId;}
-    public void setTijdslotId(int tijdslotIdOrder){ this.tijdslotIdOrder = tijdslotIdOrder;}
-
-
-    @Override
-    public String toString() {
-        if(voornaam == null){
-            voornaam = "-";
-        }
-        if(familienaam == null){
-            familienaam = "";
-        }
-        if(groepnaam == null){
-            groepnaam = "-";
-        }
-        String jaar = tijdstip.substring(2, 4);
-        String maand = tijdstip.substring(5, 7);
-        String dag = tijdstip.substring(8, 10);
-
-        String tijd = tijdstip.substring(11,tijdstip.length()-3);
-        LocalTime startTijd = LocalTime.parse(tijd);
-        LocalTime eindTijd = startTijd.plusHours(1);
-
-        String datum = dag + "/" + maand + "/" + jaar+"  "+tijd+"-"+eindTijd;
-
-        String gm_naam = voornaam + " " + familienaam;
-        String uitvoer = datum + "  €"+prijs+"  gm: "+gm_naam+"  groep: "+groepnaam;
-        return uitvoer;
+        this.prijs = prijs;
+        this.gamemasterId = gamemasterId;
+        this.gamemasterVoornaam = gamemasterVoornaam;
+        this.gamemasterFamilienaam = gamemasterFamilienaam;
+        this.groepId = groepId;
+        this.groepNaam = groepNaam;
     }
 
     public int getId() {
-        return tijdslotId;
+        return id;
     }
 
-    public String toStringSimple() {
-        String jaar = tijdstip.substring(2, 4);
-        String maand = tijdstip.substring(5, 7);
-        String dag = tijdstip.substring(8, 10);
-
-        String tijd = tijdstip.substring(11,tijdstip.length()-3);
-        LocalTime startTijd = LocalTime.parse(tijd);
-        LocalTime eindTijd = startTijd.plusHours(1);
-
-        String datum = dag + "/" + maand + "/" + jaar+"  "+tijd+"-"+eindTijd;
-
-
-        return datum;
+    public LocalDateTime getTijdstip() {
+        return tijdstip;
     }
 
+    public BigDecimal getPrijs() {
+        return prijs;
+    }
+
+    public Integer getGamemasterId() {
+        return gamemasterId;
+    }
+
+    public Integer getGroepId() {
+        return groepId;
+    }
+
+    public String formatDateTimeRange() {
+        return DATE_FORMAT.format(tijdstip) + " " + TIME_FORMAT.format(tijdstip) + "-" + TIME_FORMAT.format(tijdstip.plusHours(1));
+    }
+
+    public String formatPrice() {
+        return String.format(Locale.ROOT, "€%.2f", prijs);
+    }
+
+    public String formatGamemaster() {
+        if (gamemasterVoornaam == null || gamemasterFamilienaam == null) {
+            return "-";
+        }
+        return gamemasterVoornaam + " " + gamemasterFamilienaam;
+    }
+
+    public String formatGroep() {
+        return groepNaam == null ? "-" : groepNaam;
+    }
+
+    public String formatVolledig() {
+        return formatDateTimeRange() + " " + formatPrice() + " gm: " + formatGamemaster() + " groep: " + formatGroep();
+    }
+
+    public String formatMetPrijs() {
+        return formatDateTimeRange() + " " + formatPrice();
+    }
+
+    public String formatZonderPrijs() {
+        return formatDateTimeRange();
+    }
 }
