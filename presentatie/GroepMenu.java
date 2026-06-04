@@ -6,9 +6,13 @@ public class GroepMenu {
         while (running) {
             IO.println("");
             IO.println("--- Deelnemers en groepen beheren ---");
+            IO.println("");
             IO.println("\t1. Toon alle groepen");
+            IO.println("");
             IO.println("\t2. Toon deelnemers van een groep");
+            IO.println("");
             IO.println("\t3. Maak nieuwe groep aan");
+            IO.println("");
             IO.println("\t0. Terug");
             IO.print("Keuze: ");
 

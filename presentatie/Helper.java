@@ -192,17 +192,17 @@ public class Helper {
         }
     }
 
-    public static void maakNieuweReservatie() {
+    public static boolean maakNieuweReservatie() {
         List<Groep> groepen = db.geefGroepenZonderReservatie();
         if (groepen.isEmpty()) {
             IO.println("Geen groepen zonder reservatie beschikbaar.");
-            return;
+            return false;
         }
 
         List<Tijdslot> tijdslots = db.geefBeschikbareTijdslotsKomendeMaand();
         if (tijdslots.isEmpty()) {
             IO.println("Geen beschikbare tijdslots in de komende maand.");
-            return;
+            return false;
         }
 
         IO.println("Kies een groep:");
@@ -211,7 +211,7 @@ public class Helper {
         }
         int groepIndex = leesKeuzeBereik("Keuze (1-" + groepen.size() + "): ", 1, groepen.size());
         if (groepIndex == -1) {
-            return;
+            return true;
         }
 
         IO.println("Kies een tijdslot:");
@@ -220,7 +220,7 @@ public class Helper {
         }
         int tijdslotIndex = leesKeuzeBereik("Keuze (1-" + tijdslots.size() + "): ", 1, tijdslots.size());
         if (tijdslotIndex == -1) {
-            return;
+            return true;
         }
 
         Groep gekozenGroep = groepen.get(groepIndex - 1);
@@ -228,6 +228,7 @@ public class Helper {
         db.maakReservatie(gekozenGroep.getId(), gekozenTijdslot.getId());
 
         IO.println("Reservatie aangemaakt: " + gekozenGroep.getNaam() + " → " + gekozenTijdslot.formatZonderPrijs());
+        return true;
     }
 
     public static void toonReservatiesOpDatum() {
