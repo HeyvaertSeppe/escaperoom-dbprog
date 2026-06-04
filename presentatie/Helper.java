@@ -129,6 +129,10 @@ public class Helper {
 
     public static void toonDeelnemersVanGroep() {
         List<Groep> groepen = db.geefGroepen();
+        if (groepen.isEmpty()) {
+            IO.println("Geen groepen beschikbaar.");
+            return;
+        }
         for (int i = 0; i < groepen.size(); i++) {
             IO.println((i + 1) + ". " + groepen.get(i).formatZonderIndex());
         }

@@ -4,16 +4,11 @@ public class GroepMenu {
     public static void toonMenu() {
         boolean running = true;
         while (running) {
-            IO.println("");
             IO.println("--- Deelnemers en groepen beheren ---");
-            IO.println("");
-            IO.println("\t1. Toon alle groepen");
-            IO.println("");
-            IO.println("\t2. Toon deelnemers van een groep");
-            IO.println("");
-            IO.println("\t3. Maak nieuwe groep aan");
-            IO.println("");
-            IO.println("\t0. Terug");
+            IO.println("1. Toon alle groepen");
+            IO.println("2. Toon deelnemers van een groep");
+            IO.println("3. Maak nieuwe groep aan");
+            IO.println("0. Terug");
             IO.print("Keuze: ");
 
             switch (IO.readln()) {
