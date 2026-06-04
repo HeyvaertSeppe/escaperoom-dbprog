@@ -21,9 +21,13 @@ public class Main {
 
     private static void toonHoofdMenu() {
         IO.println("=== Escaperoom Beheersysteem ===");
+        IO.println("");
         IO.println("\t1. Tijdslots beheren");
+        IO.println("");
         IO.println("\t2. Deelnemers en groepen");
+        IO.println("");
         IO.println("\t3. Reservaties");
+        IO.println("");
         IO.println("\t0. Afsluiten");
         IO.print("Keuze: ");
     }

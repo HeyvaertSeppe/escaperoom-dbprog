@@ -6,10 +6,15 @@ public class TijdslotMenu {
         while (running) {
             IO.println("");
             IO.println("--- Tijdslots beheren ---");
+            IO.println("");
             IO.println("\t1. Toon alle tijdslots");
+            IO.println("");
             IO.println("\t2. Toon tijdslots op datum");
+            IO.println("");
             IO.println("\t3. Voeg tijdslot toe");
+            IO.println("");
             IO.println("\t4. Wijs gamemaster toe aan tijdslot");
+            IO.println("");
             IO.println("\t0. Terug");
             IO.print("Keuze: ");
 
